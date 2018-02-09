@@ -49,7 +49,6 @@ public slots:
     void cleanup();
 
 private slots:
-    void badFile();
 
 private:
     QUrl url;
@@ -94,30 +93,6 @@ void tst_QFeedbackMMK::cleanup()
 
 Q_DECLARE_METATYPE(QFeedbackEffect::ErrorType);
 
-void tst_QFeedbackMMK::badFile()
-{
-    QFeedbackFileEffect fe;
-    qRegisterMetaType<QFeedbackEffect::ErrorType>();
-    QSignalSpy errorSpy(&fe, SIGNAL(error(QFeedbackEffect::ErrorType)));
-    QSignalSpy stateSpy(&fe, SIGNAL(stateChanged()));
-
-    fe.setSource(QUrl("file:///does/not/exist/ever.wav"));
-
-    // Depending on event loops we might miss the Loading state.
-    QTRY_VERIFY(stateSpy.count() >  0);    // Loading & Stopped
-    QTRY_COMPARE(fe.state(), QFeedbackEffect::Stopped);
-
-    QVERIFY(errorSpy.count() > 0);
-    QVERIFY(fe.isLoaded() == false);
-    stateSpy.clear();
-    errorSpy.clear();
-
-    fe.start(); // this actually causes a load, so it goes into LOADING, then fails, should go to STOPPED
-    QTRY_VERIFY(stateSpy.count() > 0);    // Loading & Stopped
-    QTRY_COMPARE(fe.state(), QFeedbackEffect::Stopped);
-    QVERIFY(errorSpy.count() > 0);
-    QVERIFY(fe.isLoaded() == false);
-}
 
 QTEST_MAIN(tst_QFeedbackMMK)
 
