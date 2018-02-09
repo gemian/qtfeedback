@@ -50,7 +50,6 @@ QT_BEGIN_NAMESPACE
 
 inline QStringList getPluginPaths(const QString& plugintype)
 {
-#if QT_CONFIG(library)
 #if !defined QT_NO_DEBUG
     const bool showDebug = qgetenv("QT_DEBUG_PLUGINS").toInt() > 0;
 #endif
@@ -110,10 +109,6 @@ inline QStringList getPluginPaths(const QString& plugintype)
     }
 
   return  plugins;
-#else
-    Q_UNUSED(plugintype)
-    return QStringList();
-#endif
 }
 
 QT_END_NAMESPACE
