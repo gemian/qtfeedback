@@ -49,7 +49,6 @@ public slots:
     void cleanup();
 
 private slots:
-    void goodFile();
     void badFile();
 
 private:
@@ -94,83 +93,6 @@ void tst_QFeedbackMMK::cleanup()
 }
 
 Q_DECLARE_METATYPE(QFeedbackEffect::ErrorType);
-
-void tst_QFeedbackMMK::goodFile()
-{
-    QFeedbackFileEffect fe;
-    qRegisterMetaType<QFeedbackEffect::ErrorType>();
-    QSignalSpy errorSpy(&fe, SIGNAL(error(QFeedbackEffect::ErrorType)));
-    QSignalSpy stateSpy(&fe, SIGNAL(stateChanged()));
-
-    QFileInfo fi(url.toLocalFile());
-    qDebug() << "URL for test data:" << url << url.toLocalFile() << fi.exists();
-
-    fe.setSource(url);
-
-    QTRY_COMPARE((int)fe.state(),  (int)QFeedbackFileEffect::Loading);
-    QCOMPARE(errorSpy.count(), 0);
-    QCOMPARE(stateSpy.count(), 1); // Stopped to Loading
-
-    // Wait for it to be loaded
-    QTRY_COMPARE((int)fe.state(),  (int)QFeedbackFileEffect::Stopped);
-    QCOMPARE(errorSpy.count(), 0);
-    QCOMPARE(stateSpy.count(), 2); // Stopped to Loading to Stopped
-
-    // Now play!
-    fe.start();
-
-    // Now wait for it to be playing
-    QTRY_COMPARE((int)fe.state(),  (int)QFeedbackFileEffect::Running);
-    QCOMPARE(errorSpy.count(), 0);
-    QCOMPARE(stateSpy.count(), 3); // Stopped to Loading to Stopped to Running
-    QVERIFY(fe.isLoaded());
-    QVERIFY(fe.duration() == 0); // unsupported :/
-
-    // Try pausing - not supported
-    fe.pause(); // XXX this emits stateChanged even when it fails
-    QTRY_COMPARE((int)fe.state(),  (int)QFeedbackFileEffect::Running);
-    QCOMPARE(errorSpy.count(), 1);
-    QCOMPARE(stateSpy.count(), 4); // Stopped to Loading to Stopped to Running
-
-    // It should run out, eventually
-    QTRY_COMPARE((int)fe.state(),  (int)QFeedbackFileEffect::Stopped);
-    QCOMPARE(errorSpy.count(), 1);
-    QCOMPARE(stateSpy.count(), 5); // Stopped to Loading to Stopped to Running to Stopped
-
-    // Play it again..
-    fe.start();
-    QTRY_COMPARE((int)fe.state(),  (int)QFeedbackFileEffect::Running);
-    QCOMPARE(errorSpy.count(), 1);
-    QCOMPARE(stateSpy.count(), 6); // Stopped to Loading to Stopped to Running to Stopped to Running
-
-    fe.stop();
-    QTRY_COMPARE((int)fe.state(),  (int)QFeedbackFileEffect::Stopped);
-    QCOMPARE(errorSpy.count(), 1);
-    QCOMPARE(stateSpy.count(), 7); // Stopped to Loading to Stopped to Running to Stopped to Running to Stopped
-
-    fe.unload();
-    QTRY_COMPARE((int)fe.state(),  (int)QFeedbackFileEffect::Stopped);
-    QCOMPARE(stateSpy.count(), 7); // no change
-    QCOMPARE(fe.isLoaded(), false);
-    QCOMPARE(fe.duration(), 0);
-
-    // now load again
-    fe.load();
-#ifdef Q_OS_MAC
-    QEXPECT_FAIL("", "QTBUG-25448", Abort);
-#endif
-    QTRY_COMPARE((int)fe.state(),  (int)QFeedbackFileEffect::Loading);
-    QCOMPARE(errorSpy.count(), 1);
-    QCOMPARE(stateSpy.count(), 8); // Stopped to Loading
-
-    // Now wait for it to be loaded and playing
-    QTRY_COMPARE((int)fe.state(), (int) QFeedbackFileEffect::Stopped);
-    QCOMPARE(errorSpy.count(), 1);
-    QCOMPARE(stateSpy.count(), 9); // Stopped to Loading to Stopped
-    QVERIFY(fe.isLoaded());
-
-    // destroy it while playing
-}
 
 void tst_QFeedbackMMK::badFile()
 {
