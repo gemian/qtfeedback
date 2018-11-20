@@ -1,8 +1,8 @@
-qtfeedback-opensource-src (5.0~5.7.1~1) stretch; urgency=medium
+qtfeedback-opensource-src (5.0~gemian) stretch; urgency=medium
 
-  * Building for Qt 5.7.1.
+  * Branch for gemian.
 
- -- Adam Boardman <adamboardman@gmail.com>  Tue, 09 Feb 2018 11:56:03 +0000
+ -- Adam Boardman <adamboardman@gmail.com>  Tue, 20 Nov 2018 18:56:03 +0000
 
 qtfeedback-opensource-src (5.0~git20130529-0ubuntu15~1) zesty; urgency=medium
 
