@@ -1,7 +1,7 @@
 /****************************************************************************
 **
-** Copyright (C) 2017 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
+** Copyright (C) 2012 Digia Plc and/or its subsidiary(-ies).
+** Contact: http://www.qt-project.org/legal
 **
 ** This file is part of the documentation of the Qt Toolkit.
 **
@@ -10,17 +10,17 @@
 ** Licensees holding valid commercial Qt licenses may use this file in
 ** accordance with the commercial license agreement provided with the
 ** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
+** a written agreement between you and Digia.  For licensing terms and
+** conditions see http://qt.digia.com/licensing.  For further information
+** use the contact form at http://qt.digia.com/contact-us.
 **
 ** GNU Free Documentation License Usage
 ** Alternatively, this file may be used under the terms of the GNU Free
 ** Documentation License version 1.3 as published by the Free Software
 ** Foundation and appearing in the file included in the packaging of
-** this file. Please review the following information to ensure
+** this file.  Please review the following information to ensure
 ** the GNU Free Documentation License version 1.3 requirements
-** will be met: https://www.gnu.org/licenses/fdl-1.3.html.
+** will be met: http://www.gnu.org/copyleft/fdl.html.
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
@@ -28,7 +28,7 @@
 /*!
 
 \page qtfeedback-index.html
-\title Qt Feedback
+\title C++ Feedback API
 
 \brief An API enabling a client to provide tactile and audio feedback to user actions.
 
@@ -197,21 +197,3 @@ application.
 
 */
 
-/*!
-    \page feedback-api.html
-
-    \title Qt Feedback C++ Classes
-
-    \brief An API enabling a client to provide tactile and audio feedback to user actions.
-
-    \section1 Overview
-
-    The C++ Feedback API enables a client to control and provide tactile and audio feedback
-    to the user. The feedback is in response to user actions. For example, touching an
-    onscreen button. Control of the feedback involves control of the vibration of
-    the device, when a vibrator is used, or the piezo feedback from the screen.
-
-    \section1 Feedback C++ Classes
-
-    \annotatedlist feedback
-*/

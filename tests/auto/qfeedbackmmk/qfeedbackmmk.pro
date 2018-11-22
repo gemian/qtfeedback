@@ -4,7 +4,11 @@ QT += feedback
 
 SOURCES += tst_qfeedbackmmk.cpp
 
-maemo* {
+wince* {
+    deploy.files = test.wav
+    DEPLOYMENT = deploy
+    DEFINES += QT_QFEEDBACKMMK_USEAPPLICATIONPATH
+} else:maemo* {
     DEFINES += QT_QFEEDBACKMMK_USEAPPLICATIONPATH
 } else {
     DEFINES += SRCDIR=\\\"$$PWD/\\\"

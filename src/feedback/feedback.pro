@@ -1,12 +1,10 @@
 TARGET = QtFeedback
 QT = core
 
-QMAKE_DOCS = $$PWD/../../doc/qtfeedback.qdocconf
-
 MODULE_PLUGIN_TYPES = \
     feedback
 
-load(qt_module)
+QMAKE_DOCS = $$PWD/../../doc/qtfeedback.qdocconf
 
 PUBLIC_HEADERS += qfeedbackglobal.h \
                   qfeedbackactuator.h \
@@ -22,3 +20,6 @@ HEADERS =  $$PUBLIC_HEADERS $$PRIVATE_HEADERS
 SOURCES += qfeedbackactuator.cpp \
            qfeedbackeffect.cpp \
            qfeedbackplugin.cpp
+
+load(qt_module)
+
